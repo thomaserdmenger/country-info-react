@@ -1,8 +1,8 @@
-# React + Vite
+# Simple country info card whose data is queried via an API to practice React's State and Effect Hook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Links
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [See live site here](https://thomaserdmenger.github.io/country-info-react)
+- [GitHub Repository](https://github.com/thomaserdmenger/country-info-react)
+- [GitHub Author](https://github.com/thomaserdmenger)
+- [LinkedIn Author](https://www.linkedin.com/in/thomaserdmenger/)
