@@ -3,11 +3,26 @@ import './styles.css'
 
 export default function App() {
   const [countryCode, setCountryCode] = React.useState('AU')
+  const [data, setData] = React.useState(null)
 
   const handleChange = ({ target }) => {
     const { value } = target
     setCountryCode(value)
   }
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://restcountries.com/v2/alpha/${countryCode}`
+      )
+
+      const data = await response.json()
+
+      setData(data)
+    }
+
+    fetchData()
+  }, [countryCode])
 
   return (
     <React.Fragment>
@@ -30,29 +45,31 @@ export default function App() {
             </select>
           </div>
         </header>
-        <article>
-          <h2>Country Name</h2>
-          <table>
-            <tbody>
-              <tr>
-                <td>Capital:</td>
-                <td>Data</td>
-              </tr>
-              <tr>
-                <td>Region:</td>
-                <td>Data</td>
-              </tr>
-              <tr>
-                <td>Population:</td>
-                <td>Data</td>
-              </tr>
-              <tr>
-                <td>Aria:</td>
-                <td>Data</td>
-              </tr>
-            </tbody>
-          </table>
-        </article>
+        {data && (
+          <article>
+            <h2>{data.name}</h2>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Capital:</td>
+                  <td>{data.capital}</td>
+                </tr>
+                <tr>
+                  <td>Region:</td>
+                  <td>{data.region}</td>
+                </tr>
+                <tr>
+                  <td>Population:</td>
+                  <td>{data.population}</td>
+                </tr>
+                <tr>
+                  <td>Area:</td>
+                  <td>{data.area}</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        )}
       </section>
     </React.Fragment>
   )
