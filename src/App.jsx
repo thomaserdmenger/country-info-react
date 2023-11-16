@@ -2,6 +2,13 @@ import * as React from 'react'
 import './styles.css'
 
 export default function App() {
+  const [countryCode, setCountryCode] = React.useState('AU')
+
+  const handleChange = ({ target }) => {
+    const { value } = target
+    setCountryCode(value)
+  }
+
   return (
     <React.Fragment>
       <section>
@@ -9,7 +16,7 @@ export default function App() {
           <h1>Country info:</h1>
           <label htmlFor='country'></label>
           <div>
-            <select id='country'>
+            <select id='country' value={countryCode} onChange={handleChange}>
               <option value='AU'>Australia</option>
               <option value='CA'>Canada</option>
               <option value='CN'>China</option>
