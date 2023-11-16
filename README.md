@@ -1,4 +1,4 @@
-# Simple country info card whose data is queried via an API to practice React's State and Effect Hook
+# Simple country info card whose data is queried via API to practice React's State and Effect Hook
 
 ## Links
 
