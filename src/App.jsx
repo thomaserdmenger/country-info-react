@@ -4,6 +4,8 @@ import './styles.css'
 export default function App() {
   const [countryCode, setCountryCode] = React.useState('AU')
   const [data, setData] = React.useState(null)
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
 
   const handleChange = ({ target }) => {
     const { value } = target
@@ -11,14 +13,37 @@ export default function App() {
   }
 
   React.useEffect(() => {
+    let ignore = false
+
     const fetchData = async () => {
-      const response = await fetch(
-        `https://restcountries.com/v2/alpha/${countryCode}`
-      )
+      setIsLoading(true)
+      try {
+        const response = await fetch(
+          `https://restcountries.com/v2/alpha/${countryCode}`
+        )
 
-      const data = await response.json()
+        if (!response.ok) {
+          const errorMessage = `Error with status: ${response.status}`
+          throw new Error(errorMessage)
+        }
 
-      setData(data)
+        if (ignore === false) {
+          const data = await response.json()
+          setData(data)
+          setError(null)
+          setIsLoading(false)
+        }
+      } catch (error) {
+        if (ignore === false) {
+          setData(null)
+          setError(error)
+          setIsLoading(false)
+        }
+      }
+
+      return () => {
+        ignore = true
+      }
     }
 
     fetchData()
@@ -43,6 +68,8 @@ export default function App() {
               <option value='GB'>United Kingdom</option>
               <option value='US'>United States of America</option>
             </select>
+            {isLoading && <span>Loading ...</span>}
+            {error && <span>{error.message}</span>}
           </div>
         </header>
         {data && (
